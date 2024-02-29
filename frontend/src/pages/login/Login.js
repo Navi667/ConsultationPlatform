@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
     return (
@@ -7,7 +8,7 @@ function Login() {
             <div className='w-full p-6 rounded-lg shadow-md bg-red-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
                 <h1 className='text-3xl font-semibold text-center text-gray-300'>
                     Login
-                    <span className='text-red-500'>诊疗系统</span>
+                    <span className='text-red-500'>问诊系统</span>
                 </h1>
 
                 <form>
@@ -25,7 +26,7 @@ function Login() {
                         <input type="text" placeholder="enter password" className="input input-bordered input-secondary w-full max-w-xs" />
                     </div>
 
-                    <a href='/' className="link link-hover hover:underline hover:text-red-600 mt-2 inline-block">没有账号？前往注册</a>
+                    <Link to='/signup' className="link link-hover hover:underline hover:text-red-600 mt-2 inline-block">没有账号？前往注册</Link>
                     <div>
                         <button className='btn btn-block btn-sm mt-2'>登录</button>
                     </div>
