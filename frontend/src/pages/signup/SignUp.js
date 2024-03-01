@@ -78,7 +78,9 @@ function SignUp() {
           <Link to='/login' className="link link-hover hover:underline hover:text-red-600 mt-2 inline-block">已有账号，前往登陆。</Link>
 
           <div>
-            <button className='btn btn-block btn-sm mt-2 border border-slate-700' type="submit">Sign Up</button>
+            <button className='btn btn-block btn-sm mt-2 border border-slate-700' type="submit" disabled={loading}>
+              {loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
+            </button>
           </div>
         </form>
       </div>

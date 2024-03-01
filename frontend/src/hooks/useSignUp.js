@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useAuthContext } from '../context/AuthContext';
 
 const useSignUp = () => {
     const [loading, setLoading] = useState(false);
+    
+    const {setAuthUser} = useAuthContext();
 
     const signup = async ({ fullName, username, password, confirmPassword, gender }) => {
 
         const success = handleInputErrors({ fullName, username, password, confirmPassword, gender });
         if (!success) return false;
+
 
         setLoading(true);
         try {
@@ -18,8 +22,17 @@ const useSignUp = () => {
             })
 
             const data = await res.json();
-            toast.success('注册成功，请前往登陆')
-            console.log(data)
+            toast.success('注册成功')
+            if(data.error){
+                throw new Error(data.error);
+            }
+
+            //localStorage
+            localStorage.setItem("chat-user", JSON.stringify(data));
+            
+            //context
+            setAuthUser(data);
+
         } catch (error) {
             toast.error(error.message);
         } finally {
