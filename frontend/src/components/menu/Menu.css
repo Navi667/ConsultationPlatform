@@ -1,0 +1,11 @@
+.menu {
+    height: 150vh;
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    gap: 25px;
+}
+.menuTitle {
+    font-size: 25px;
+    color: #555;
+}

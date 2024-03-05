@@ -1,0 +1,8 @@
+.posts {
+    max-height: 80vh;
+    width: 70%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 150px;
+}
