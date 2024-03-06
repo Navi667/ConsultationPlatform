@@ -28,7 +28,8 @@ export const signup = async (req, res) => {
         username,
         password: hashedPassword,
         gender,
-        profilePic: gender === "male" ? boyProfilePic : girlProfilePic
+        profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
+        permission: "user"
     })
 
    if(newUser){
@@ -39,8 +40,8 @@ export const signup = async (req, res) => {
         _id: newUser._id,
         fullName: newUser.fullName,
         username: newUser.username,
-        profilePic: newUser.profilePic
-
+        profilePic: newUser.profilePic,
+        permission: "user"
     })
    }
 
@@ -65,10 +66,9 @@ export const login = async (req, res) => {
             _id: user._id,
             fullName: user.fullName,
             username: user.username,
-            profilePic: user.profilePic
+            profilePic: user.profilePic,
+            permission: user.permission
         })
-
-
     }catch(error) {
         console.log("error in login controller", error.message);
         res.status(500).json({error:"Internal Server Error"})

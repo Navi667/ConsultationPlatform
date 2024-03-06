@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./AdminRegister.css"
 
 const AdminRegister = () => {
     return (
         <div className='auth'>
-            <h1>Register Page</h1>
+            <h1 className='registerTitle'>Register Page</h1>
             <form className='registerForm'>
                 <input className='registerInput' type='text' placeholder='username'></input>
                 <input className='registerInput' type='password' placeholder='password'></input>

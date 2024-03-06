@@ -45,6 +45,9 @@ function Login() {
 
                     <Link to='/signup' className="link link-hover hover:underline hover:text-red-600 mt-2 inline-block">没有账号？前往注册</Link>
                     <div>
+                        <Link to='/adminlogin' className="link link-hover hover:underline hover:text-red-600 mt-2 inline-block">管理员登陆</Link>
+                    </div>
+                    <div>
                         <button className='btn btn-block btn-sm mt-2' disabled={loading}>
                             {loading ? <span className='loading loading-spinner'></span> : "Login"}
                         </button>

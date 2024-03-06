@@ -1,0 +1,74 @@
+.write {
+    width: 80vw;
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+.writeContent {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.writeTitle {
+    padding: 10px;
+    border: 1px solid lightgray;
+}
+.writeContainer {
+    height: 500px;
+    overflow: scroll;
+    border: 1px solid lightgray;
+}
+.publish-quill{
+    height: 100%;
+    border: none;
+}
+.writMenu {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item {
+    border: 1px solid lightgray;
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.writeBgUrl{
+    width: 225px;
+    font-size: 12px;
+    border: 1px solid black;
+}
+.writeMenuTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+.writeBtns {
+    display: flex;
+    justify-content: space-between;
+}
+.writeBtns :first-child {
+    cursor: pointer;
+    color: teal;
+    background-color: white;
+    border: 1px solid teal;
+    padding: 3px 5px;
+    margin: 10px 5px;
+}
+.writeBtns :last-child{
+    cursor: pointer;
+    color: white;
+    background-color: teal;
+    border: 1px solid white;
+    padding: 3px 5px;
+    margin: 10px 5px;
+}
+.chooseCat {
+    color: teal;
+}

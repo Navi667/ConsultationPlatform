@@ -1,8 +1,14 @@
 .navBar {
+    height: 80px;
     width: 100vw;
+    padding: 0;
     display: flex;
     justify-content: center;
     border-bottom: 1px solid black;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 100;
 }
 
 .container {
@@ -19,14 +25,23 @@
     align-items: center;
 }
 
-.link {
+.categoryLink {
     text-decoration: none;
     color: inherit;
+    margin-right: 20px;
+}
+
+.categoryLink h6:hover {
+    font-size: 35px;
+}
+
+.logo {
+    margin-left: 40px;
 }
 
 .logoImg {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
 }
 
 h6 {
@@ -34,12 +49,13 @@ h6 {
     font-weight: 300;
 }
 
-.username,
-.logout {
+.navBarUsername, .navBarLogout {
     cursor: pointer;
+    font-size: 20px;
+    margin-right: 15px;
 }
 
-.write {
+.navBarWriteBtn {
     background-color: #b9e7e7;
     width: 60px;
     height: 60px;
@@ -51,7 +67,8 @@ h6 {
 
 }
 
-.write:hover {
+.navBarWriteBtn:hover {
     color: teal;
     background-color: white;
+    border: 1px solid#b9e7e7;
 }

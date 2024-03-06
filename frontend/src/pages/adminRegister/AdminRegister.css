@@ -7,7 +7,7 @@
     width: 100vw;
     flex-direction: column;
 }
-h1 {
+.registerTitle {
     font-size: 20px;
     color: teal;
     margin-bottom: 20px;
