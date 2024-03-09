@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from './context/AuthContext';
 import { SocketContextProvider } from './context/SocketContext';
 
+
 import App from './App';
 
 
@@ -13,7 +14,7 @@ root.render(
   <BrowserRouter>
     <AuthContextProvider>
       <SocketContextProvider>
-        <App />
+                <App />
       </SocketContextProvider>
     </AuthContextProvider>
   </BrowserRouter>

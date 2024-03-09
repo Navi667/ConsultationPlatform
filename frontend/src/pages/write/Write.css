@@ -69,6 +69,14 @@
     padding: 3px 5px;
     margin: 10px 5px;
 }
+.confirmBtn{
+    cursor: pointer;
+    color: white;
+    background-color: teal;
+    border: 1px solid white;
+    padding: 3px 5px;
+    margin: 10px 5px;
+}
 .chooseCat {
     color: teal;
 }

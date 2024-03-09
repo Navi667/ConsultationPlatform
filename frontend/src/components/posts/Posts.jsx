@@ -1,40 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Post from './Post';
-import "./Posts.css"
+import "./Posts.css";
 
-const Posts = () => {
-    const posts = [
-        {
-            id: 1,
-            title: "对视能传“红眼病”？没这么邪乎",
-            desc: "近期，得“红眼病”的患者逐渐增多，而且往往出现一家人“整建制”被传染的情况。日前，“女子红眼病传染全家，连狗眼都红了”的话题登上了热搜榜，民间更是一直流传着“红眼病”看一眼就会被传染的说法……这是真的吗？",
-            img: "https://p3.img.cctvpic.com/photoworkspace/2024/03/05/2024030511542780957.jpg"
-        },
-        {
-            id: 2,
-            title: "对视能传“红眼病”？没这么邪乎",
-            desc: "近期，得“红眼病”的患者逐渐增多，而且往往出现一家人“整建制”被传染的情况。日前，“女子红眼病传染全家，连狗眼都红了”的话题登上了热搜榜，民间更是一直流传着“红眼病”看一眼就会被传染的说法……这是真的吗？",
-            img: "https://p3.img.cctvpic.com/photoworkspace/2024/03/05/2024030511542780957.jpg"
-        },
-        {
-            id: 3,
-            title: "对视能传“红眼病”？没这么邪乎",
-            desc: "近期，得“红眼病”的患者逐渐增多，而且往往出现一家人“整建制”被传染的情况。日前，“女子红眼病传染全家，连狗眼都红了”的话题登上了热搜榜，民间更是一直流传着“红眼病”看一眼就会被传染的说法……这是真的吗？",
-            img: "https://p3.img.cctvpic.com/photoworkspace/2024/03/05/2024030511542780957.jpg"
-        },
-        {
-            id: 4,
-            title: "对视能传“红眼病”？没这么邪乎",
-            desc: "近期，得“红眼病”的患者逐渐增多，而且往往出现一家人“整建制”被传染的情况。日前，“女子红眼病传染全家，连狗眼都红了”的话题登上了热搜榜，民间更是一直流传着“红眼病”看一眼就会被传染的说法……这是真的吗？",
-            img: "https://p3.img.cctvpic.com/photoworkspace/2024/03/05/2024030511542780957.jpg"
-        }
-    ]
+
+const Posts = (receiveArticles) => {
+    const articles = receiveArticles.receiveArticles;
+
+    //选中高亮页面
+    const [pageIndex, setPageIndex] = useState(1);
+    //分页器页面数
+    const [currentPage, setCurrentPage] = useState(1);
+    //每一页显示多少文章
+    const [articlesPerPage, setArticlesPerPage] = useState(5);
+    //在特定页面上显示项目的边界
+    //每页的最后一篇文章
+    const lastArticleInView = currentPage * articlesPerPage;
+    //每页的第一篇文章
+    const firstArticleInView = lastArticleInView - articlesPerPage;
+    //页面数
+    const pageNumbers = [];
+
+    //该页面要渲染的所有文章
+    //该页面要渲染的所有文章
+
+    //先将文章列表反转
+    let articlesListReverse = articles.slice().reverse();
+    //再按照每页数量分割文章列表
+    let articlesDisplay = articlesListReverse.slice(firstArticleInView, lastArticleInView);
+    for (let i = 1; i <= Math.ceil(articles.length / articlesPerPage); i++) {
+        pageNumbers.push(i);
+    }
+    const changePageHandler = (e, num) => {
+        setCurrentPage(num);
+        setPageIndex(num);
+        window.scrollTo(0, 0)
+    }
+
     return (
+
         <div className='posts'>
-            {posts.map((post) => {
-                return <Post post={post} key={post.id}></Post>
+            {articlesDisplay.map((article) => {
+                return <Post article={article} key={article._id}></Post>
             })}
+            <div className='postsPageSorter'>
+                {pageNumbers.map((pageNum, index) => {
+                    return <button className={pageNum === pageIndex ? 'pageSorterBtn checked' : 'pageSorterBtn'} key={index} onClick={(e) => { changePageHandler(e, pageNum) }}>{pageNum}</button>
+                })}
+            </div>
         </div>
+
+
     )
 }
 

@@ -22,22 +22,32 @@ const NavBar = () => {
         <div className='navBar'>
             <div className='container'>
 
-                <div className='logo'>
+                <div className='logo' onClick={() => {navTo("/")}}>
                     <img className='logoImg' src={Logo} alt=''></img>
                 </div>
 
                 <div className='links'>
                     {categories.map((category, index) => {
-                        return <Link className='categoryLink' to='/' key={index}><h6>{category}</h6></Link>
+                        return <Link className='categoryLink' to={`category/${category}`} key={index}><h6>{category}</h6></Link>
                     })}
-                    {authUser ? 
-                    <span className='navBarUsername' onClick={() => { navTo("/login") }}>{authUser.fullName || "Admin"}</span> : 
-                    <span className='navBarUsername' onClick={() => { navTo("/login") }}>登录</span>}
+                    {authUser ?
+                        <div className='navBarUsername'>{authUser.fullName || "Admin"}
+                            <div className='authList'>
+                                <ul>
+                                    {authUser.fullName ? 
+                                    <li className='authListLi' onClick={() =>{navTo("/chatroom")}}>聊天室</li> : 
+                                    <li className='authListLi'>管理面板</li>}
+                                </ul>
+                            </div>
+                        </div> :
+                        <span className='navBarUsername' onClick={() => { navTo("/login") }}>登录</span>}
+
+
                     <span className='navBarLogout' onClick={logout}><BiLogOut></BiLogOut></span>
                     {
-                        permission === "admin" ?  <span className='navBarWriteBtn'>
-                        <Link className='writeBtnLink' to='/write'><h6>write</h6></Link>
-                    </span> : ""
+                        permission === "admin" ? <span className='navBarWriteBtn'>
+                            <Link className='writeBtnLink' to='/write'><h6>write</h6></Link>
+                        </span> : ""
                     }
                 </div>
 
