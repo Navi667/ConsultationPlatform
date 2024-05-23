@@ -4,6 +4,8 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from './context/AuthContext';
 import { SocketContextProvider } from './context/SocketContext';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/locale/zh_CN';
 
 
 import App from './App';
@@ -14,7 +16,9 @@ root.render(
   <BrowserRouter>
     <AuthContextProvider>
       <SocketContextProvider>
-                <App />
+        <ConfigProvider locsale={zhCN}>
+          <App />
+        </ConfigProvider>
       </SocketContextProvider>
     </AuthContextProvider>
   </BrowserRouter>

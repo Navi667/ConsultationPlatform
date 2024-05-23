@@ -26,14 +26,14 @@ const Single = () => {
                 <img className='bgc' src={article.bgImg} alt=''></img>
                 <div className='info'>
                     <h1 className='title'>{article.title}</h1>
-                    <span>{article.auth}</span>
+                    <span>{article.author}</span>
                     <p>{extractedDate}</p>
                 </div>
                 <div className='article'>
                     {htmlStr}
                 </div>
             </div>
-            <Menu></Menu>
+            <Menu cat={article.category} id={article._id}></Menu>
         </div>
     )
 }

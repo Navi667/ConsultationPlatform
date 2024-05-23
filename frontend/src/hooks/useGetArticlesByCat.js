@@ -6,7 +6,6 @@ const useGetArticlesByCat = (cat) => {
     const [loading, setLoading] = useState(false);
     const {catArticles, setCatArticles} = useArticle();
     const artCat = cat;
-    console.log(artCat)
 
     useEffect(() => {
         const getArticlesByCat = async (cat) => {

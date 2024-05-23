@@ -3,7 +3,7 @@ import "./Write.css";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';//富文本样式文件
 import { useGetModules } from '../../utils/quillModules';
-import  useSubmitArticle  from "../../hooks/useSubmitArticle";
+import useSubmitArticle from "../../hooks/useSubmitArticle";
 import toast from 'react-hot-toast';
 
 const Write = () => {
@@ -43,7 +43,7 @@ const Write = () => {
             desc: "",
             author: "",
             category: "",
-            content:"",
+            content: "",
             bgImg: "",
             status: ""
         })
@@ -86,9 +86,13 @@ const Write = () => {
                         ></input>
                         <div className='writeBtns'>
                             <button className='writeBtn' type='submit'
-                                onClick={() => { setArticle({ ...article, status: "draft" }) }}>存为草稿</button>
+                                onClick={() => { setArticle({ ...article, status: "draft" }) }}>
+                                {loading ? <span className='loading loading-spinner'></span> : "存为草稿"}
+                            </button>
                             <button className='writeBtn' type='submit'
-                                onClick={() => { setArticle({ ...article, status: "public" }) }}>发布文章</button>
+                                onClick={() => { setArticle({ ...article, status: "public" }) }}>
+                                {loading ? <span className='loading loading-spinner'></span> : "发布文章"}
+                            </button>
                         </div>
                     </div>
                     <div className='item'>

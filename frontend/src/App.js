@@ -12,10 +12,16 @@ import CategoryPage from './pages/categoryPage/CategoryPage';
 import AdminLogin from './pages/adminLogin/AdminLogin';
 import AdminRegister from './pages/adminRegister/AdminRegister';
 import NavBar from './components/navbar/NavBar';
+import AdminPage from './pages/adminPage/AdminPage';
+//user pages
+import DocPage from './pages/docPage/DocPage';
+import Profile from './pages/profile/Profile';
 
 import { Route, Routes, Navigate } from 'react-router';
+import { useLocation } from 'react-router';
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from './context/AuthContext';
+import AuthRequired from './auth/AuthRequired';
 
 function App() {
 
@@ -25,40 +31,36 @@ function App() {
   }
   const permission = getPermission(authUser);
 
+  const location = useLocation();
+  const currentPath = location.pathname.slice(1, 10);
+
   return (
     <>
-      <NavBar></NavBar>
+      {currentPath === "adminpage" ? "" : <NavBar></NavBar>}
       <div className='h-screen flex items-center justify-center'>
-
-          <Routes>
-            {/* //articles routes */}
-            <Route path='/' element={<Home></Home>}></Route>
-            <Route path='/single/:id' element={<Single></Single>}></Route>
-            <Route path='/write' element={<Write></Write>}></Route>
-            <Route path='/category/:cat' element={<CategoryPage></CategoryPage>}></Route>
-            {/* //admin routes */}
-            <Route path='/adminlogin' element={authUser ?
-              (permission === "admin" ? <Navigate to="/"></Navigate> : <Navigate to="/chatroom"></Navigate>) :
-              <AdminLogin></AdminLogin>}></Route>
-            <Route path='/adminregister' element={<AdminRegister></AdminRegister>}></Route>
-            {/* //chatroom routes */}
-            <Route path='/chatroom' element={authUser ?
-              (permission === "admin" ? <Navigate to="/"></Navigate> : <ChatRoom></ChatRoom>) :
-              <Navigate to="/login"></Navigate>}>
-            </Route>
-            <Route path='/login' element={authUser ?
-              <Navigate to="/"></Navigate> :
-              <Login></Login>}>
-            </Route>
-            <Route path='/signup' element={authUser ?
-              (permission === "admin" ? <Navigate to="/"></Navigate> : <Navigate to="/chatroom"></Navigate>) :
-              <SignUp></SignUp>}>
-            </Route>
-          </Routes>
+        <Routes>
+          {/* //articles routes */}
+          <Route path='/' element={<Home></Home>}></Route>
+          <Route path='/single/:id' element={<Single></Single>}></Route>
+          <Route path='/write' element={<AuthRequired requiredAuth={"admin"}><Write></Write></AuthRequired>}></Route>
+          <Route path='/category/:cat' element={<CategoryPage></CategoryPage>}></Route>
+          {/* //admin routes */}
+          <Route path='/adminlogin' element={authUser ? <Navigate to={"/"}></Navigate> : <AdminLogin></AdminLogin>}></Route>
+          <Route path='/adminregister' element={<AdminRegister></AdminRegister>}></Route>
+          <Route path='/adminpage/*' element={<AuthRequired requiredAuth={'admin'}><AdminPage></AdminPage></AuthRequired>}></Route>
+          <Route path='/chatroom' element={<AuthRequired requiredAuth={'user'}><ChatRoom></ChatRoom></AuthRequired>}></Route>
+          <Route path='/login' element={authUser ? <Navigate to="/"></Navigate> : <Login></Login>}></Route>
+          <Route path='/signup' element={authUser ? 
+            (permission === "admin" ? <Navigate to="/"></Navigate> : <Navigate to="/chatroom"></Navigate>) :
+            <SignUp></SignUp>}>
+          </Route>
+          {/* //users routes */}
+          <Route path='/docs' element={<DocPage></DocPage>}></Route>
+          <Route path='/profile' element={<Profile></Profile>}></Route>
+          <Route path='*' element={<div>Not Found</div>}></Route>
+        </Routes>
         <Toaster />
       </div>
-
-
     </>
   )
 }

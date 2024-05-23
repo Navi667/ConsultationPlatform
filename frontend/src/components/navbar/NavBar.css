@@ -34,6 +34,9 @@
 .categoryLink h6:hover {
     font-size: 35px;
 }
+.catChecked {
+    color: red;
+}
 
 .logo {
     margin-left: 40px;

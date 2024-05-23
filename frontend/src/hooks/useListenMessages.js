@@ -19,7 +19,7 @@ const useListenMessages = () => {
         })
 
         return () => socket?.off("newMessage")
-    }, [socket, setMessages, messages])
+    }, [socket, setMessages, messages, authUser._id, selectedConversation._id])
 }
 
 export default useListenMessages

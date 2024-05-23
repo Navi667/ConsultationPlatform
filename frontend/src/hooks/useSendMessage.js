@@ -1,13 +1,10 @@
 import { useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
-import { useAuthContext } from "../context/AuthContext";
-
 
 const useSendMessage = () => {
     const [loading, setLoading] = useState(false);
     const { selectedConversation, setMessages, messages } = useConversation();
-    const {authUser} = useAuthContext();
 
     const sendMessage = async (message) => {    
         setLoading(true);

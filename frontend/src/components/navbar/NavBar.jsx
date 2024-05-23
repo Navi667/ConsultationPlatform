@@ -9,6 +9,7 @@ import { useAuthContext } from '../../context/AuthContext';
 
 const NavBar = () => {
     const categories = ["健康资讯", "前沿医疗", "时尚健康", "食品安全", "健康访谈"];
+
     const navTo = useNavTo();
     const { logout } = useAdminLogout();
 
@@ -22,21 +23,32 @@ const NavBar = () => {
         <div className='navBar'>
             <div className='container'>
 
-                <div className='logo' onClick={() => {navTo("/")}}>
+                <div className='logo' onClick={() => { navTo("/") }}>
                     <img className='logoImg' src={Logo} alt=''></img>
                 </div>
 
                 <div className='links'>
                     {categories.map((category, index) => {
-                        return <Link className='categoryLink' to={`category/${category}`} key={index}><h6>{category}</h6></Link>
+                        return <Link className="categoryLink" to={`category/${category}`} key={index}>
+                            <h6>{category}</h6>
+                        </Link>
                     })}
+                    <Link className='categoryLink' to={"/docs"}>
+                        <h6>签约名医</h6>
+                    </Link>
                     {authUser ?
-                        <div className='navBarUsername'>{authUser.fullName || "Admin"}
+                        <div className='navBarUsername' onClick={(e) => { navTo("/profile") }}>{authUser.fullName || "Admin"}
                             <div className='authList'>
                                 <ul>
-                                    {authUser.fullName ? 
-                                    <li className='authListLi' onClick={() =>{navTo("/chatroom")}}>聊天室</li> : 
-                                    <li className='authListLi'>管理面板</li>}
+                                    {authUser.fullName ?
+                                        <li className='authListLi' onClick={(e) => {
+                                            e.stopPropagation();
+                                            navTo("/chatroom")
+                                        }}>聊天室</li> :
+                                        <li className='authListLi' onClick={(e) => {
+                                            e.stopPropagation();
+                                            navTo("/adminpage")
+                                        }}>管理面板</li>}
                                 </ul>
                             </div>
                         </div> :

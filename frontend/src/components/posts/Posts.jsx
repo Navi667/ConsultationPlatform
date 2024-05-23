@@ -40,7 +40,11 @@ const Posts = (receiveArticles) => {
 
         <div className='posts'>
             {articlesDisplay.map((article) => {
-                return <Post article={article} key={article._id}></Post>
+                if(article.status === "public"){
+                    return  <Post article={article} key={article._id}></Post>
+                }else{
+                    return ""
+                }
             })}
             <div className='postsPageSorter'>
                 {pageNumbers.map((pageNum, index) => {

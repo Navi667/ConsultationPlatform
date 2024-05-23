@@ -11,10 +11,10 @@ export const submit = async (req, res) => {
             content,
             status } = req.body;
 
-            const article = await Article.findOne({title});
-            if(article) {
-                return res.status(400).json({error:"Username already exists"})
-            }
+        const article = await Article.findOne({ title });
+        if (article) {
+            return res.status(400).json({ error: "Username already exists" })
+        }
 
         const newArticle = new Article({
             title,
@@ -40,7 +40,7 @@ export const getArticles = async (req, res) => {
 
         const articles = await Article.find();
 
-        if(!articles) return res.status(200).json([]);
+        if (!articles) return res.status(200).json([]);
 
         res.status(200).send(articles);
     } catch (error) {
@@ -51,13 +51,13 @@ export const getArticles = async (req, res) => {
 
 export const getArticleById = async (req, res) => {
     try {
-        const {id: articleId} = req.params;
+        const { id: articleId } = req.params;
 
         const article = await Article.findOne({
             _id: articleId
         })
 
-        if(!article) return res.status(200).json([]);
+        if (!article) return res.status(200).json([]);
 
         res.status(200).send(article);
     } catch (error) {
@@ -68,18 +68,56 @@ export const getArticleById = async (req, res) => {
 
 export const getArticlesByCat = async (req, res) => {
     try {
-        const {cat} = req.body;
+        const { cat } = req.body;
 
         const articles = await Article.find({
             category: cat
         })
 
-        if(!articles) return res.status(200).json([]);
+        if (!articles) return res.status(200).json([]);
 
         res.status(200).send(articles);
     } catch (error) {
         console.log(111)
         console.log("Error in getArticlesCat controller", error.message);
+        res.status(500).json({ error: "Internal server error" })
+    }
+}
+
+export const updateArticle = async (req, res) => {
+    try {
+        const { id: articleId } = req.params;
+        console.log(articleId);
+        const { title,
+            desc,
+            author,
+            category,
+            bgImg,
+            content,
+            status } = req.body;
+
+        const success = await Article.findByIdAndUpdate({_id: articleId},{title,
+            desc,
+            author,
+            category,
+            bgImg,
+            content,
+            status });
+        if (success) res.status(200).send(JSON.stringify("文章修改成功"));
+    } catch (error) {
+        console.log("Error in updateArticle controller", error.message);
+        res.status(500).json({ error: "Internal server error" })
+    }
+}
+
+export const deleteArticle = async (req, res) => {
+    try {
+        const { id: articleId } = req.params;
+        console.log(articleId);
+        const success = await Article.findByIdAndDelete(articleId);
+        if (success) res.status(200).send(JSON.stringify("文章删除成功"));
+    } catch (error) {
+        console.log("Error in getArticles controller", error.message);
         res.status(500).json({ error: "Internal server error" })
     }
 }

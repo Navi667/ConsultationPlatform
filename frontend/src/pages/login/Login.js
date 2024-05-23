@@ -18,7 +18,7 @@ function Login() {
         <div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
 
             <div className='w-full p-6 rounded-lg shadow-md bg-red-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-                <h1 className='text-3xl font-semibold text-center text-gray-300'>
+                <h1 className='text-3xl font-semibold text-center text-blue-300'>
                     Login
                     <span className='text-red-500'>问诊系统</span>
                 </h1>
@@ -26,7 +26,7 @@ function Login() {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label className='label p-2'>
-                            <span className='text-base label-text'>Username</span>
+                            <span className='text-base label-text'>用户名</span>
                         </label>
                         <input type="text" placeholder="enter username" className="input input-bordered input-secondary w-full max-w-xs"
                             value={username}
@@ -36,7 +36,7 @@ function Login() {
 
                     <div>
                         <label className='label p-2'>
-                            <span className='text-base label-text'>Password</span>
+                            <span className='text-base label-text'>密码</span>
                         </label>
                         <input type="password" placeholder="enter password" className="input input-bordered input-secondary w-full max-w-xs"
                             value={password}

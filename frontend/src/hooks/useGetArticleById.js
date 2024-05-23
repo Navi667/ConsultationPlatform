@@ -26,7 +26,7 @@ const useGetArticleById = (id) => {
         };
 
         getArticleById(artId);
-    }, [id, setArticle])
+    }, [id, setArticle, artId])
 
     return { article, loading };
 }

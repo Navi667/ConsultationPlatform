@@ -6,7 +6,7 @@ const OtherPosts = (post) => {
 
     return (
         <div className='menuPost'>
-            <img className='menuBgc' src={postInfo.img} alt=''></img>
+            <img className='menuBgc' src={postInfo.bgImg} alt=''></img>
             <h2 className='menuPostTitle'>{postInfo.title}</h2>
             <button className='menuPostBtn'>Read More</button>
         </div>

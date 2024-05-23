@@ -1,0 +1,10 @@
+.catPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.catName{
+    font-size: 36px;
+    font-weight: bold;
+}

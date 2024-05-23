@@ -30,7 +30,7 @@ const useLogin = () => {
             setAuthUser(data);
           
         } catch (error) {
-            toast.error(error.message);
+            toast.error("用户名或密码错误");
         } finally {
             setLoading(false);
         }

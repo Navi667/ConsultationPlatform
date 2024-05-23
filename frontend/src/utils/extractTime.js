@@ -7,8 +7,8 @@ export function extractTime(dateString){
 
 export function extractDate(dateString){
     const date = new Date(dateString);
-    const day = date.getDay();
-    const month = date.getMonth();
+    const day = date.getDate();
+    const month = date.getUTCMonth()+1;
     const year = date.getFullYear();
 
     return `${year}-${month}-${day}`
