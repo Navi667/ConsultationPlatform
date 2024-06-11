@@ -6,9 +6,9 @@ import {
     Input,
 } from 'antd';
 import useDocApply from '../../hooks/doc/useDocApply';
+import useSubmitCase from '../../hooks/case/useSubmitCase';
 import { useAuthContext } from '../../context/AuthContext';
 import { extractDate } from "../../utils/extractTime";
-import toast from 'react-hot-toast';
 import "./Profile.css"
 
 const formItemLayout = {
@@ -34,6 +34,7 @@ const formItemLayout = {
 const Profile = () => {
     const { authUser } = useAuthContext();
     const { submitApply } = useDocApply();
+    const { submitCase } = useSubmitCase();
 
     const items = [
         {
@@ -69,8 +70,12 @@ const Profile = () => {
     ];
     const [open1, setOpen1] = useState(false)
     const [open, setOpen] = useState(false);
+    const [caseInfo, setCaseInfo] = useState({});
+    const [openCase, setOpenCase] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form, setForm] = useState({});
+    const [formApi] = Form.useForm();
+
 
     useEffect(() => {
         const getFormById = async (id) => {
@@ -88,7 +93,26 @@ const Profile = () => {
             }
         }
         getFormById(authUser._id)
-    }, [setForm, authUser._id])
+        const getCaseById = async (id) => {
+            try {
+                const res = await fetch(`/api/case/get`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ userId: id })
+                });
+                const data = await res.json();
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                setCaseInfo(data);
+            } catch (error) {
+                console.log(error.message)
+            } finally {
+                return;
+            }
+        }
+        getCaseById(authUser._id)
+    }, [])
     const showModal = () => {
         setOpen(true);
     };
@@ -114,7 +138,32 @@ const Profile = () => {
     const onFinish = async (values) => {
         await submitApply({ ...values, userId: authUser._id })
     }
+    const showCaseModal = () => {
+        setOpenCase(true);
+    }
+    const onCaseFinish = async (values) => {
+        await submitCase({ ...values, userId: authUser._id });
+    }
+    const handleCaseOk = () => {
+        // 这里的关键是调用form.validateFields，它会触发onFinish，前提是字段验证通过  
+        formApi.validateFields()
+            .then(values => {
+                // 表单验证通过后，values包含了表单的值  
+                // 你可以在这里调用你的提交逻辑，例如 onFinish(values)  
+                console.log(values);
+                onCaseFinish(values);
+            })
+            .catch(info => {
+                // 表单验证不通过，info包含了错误信息  
+                console.log('Validate Failed:', info);
+            });
+    }
+    const handleCaseCancel = () => {
+        setOpenCase(false);
+    }
 
+
+    // console.log(caseInfo[0].content);
 
     return (
         <div>
@@ -126,6 +175,36 @@ const Profile = () => {
                     width: "90vw",
                     height: "400px"
                 }} />
+            <Button style={{ display: "block", marginBottom: "40px" }} onClick={showCaseModal}>
+                上传病例
+            </Button>
+            <Modal title="病例" open={openCase} onOk={handleCaseOk} onCancel={handleCaseCancel} okType='submit' okText="提交">
+                <Form
+                    {...formItemLayout}
+                    variant="filled"
+                    style={{
+                        maxWidth: 600,
+                    }}
+                    onFinish={onCaseFinish}
+                    form={formApi}
+                >
+                    <Form.Item
+                        label="病例"
+                        name="content"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input!',
+                            },
+                        ]}
+                        initialValue={caseInfo[0] ? caseInfo[0].content : ""}
+                    >
+                        <Input.TextArea style={{
+                            height: "300px"
+                        }}/>
+                    </Form.Item>
+                </Form>
+            </Modal>
             <Button
                 type="primary"
                 style={{ color: "white", backgroundColor: "blue", width: "150px", height: "50px" }}

@@ -40,7 +40,7 @@ export const getById = async (req, res) => {
         if (appForm) {
             return res.send(JSON.stringify(appForm))
         }
-        return res.status(400).json({ error: "您还未提交申请" })
+        return res.status(400).json({ message: "您还未提交申请" })
     } catch (error) {
         console.log("error in applicationForm getById controller", error.message);
         res.status(500).json({ error: "Internal Server Error" })

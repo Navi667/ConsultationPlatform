@@ -50,7 +50,7 @@ const MyLayout = ({children}) => {
       collapsed={collapsed} 
       onCollapse={(value) => setCollapsed(value)}
       style={{
-        height:"100%"
+        height:"100vh"
       }}
       >
       <div className="demo-logo-vertical" />

@@ -11,7 +11,8 @@ import userRoutes from "./routes/user.routes.js";
 import adminRoutes from "./routes/admin.routes.js"
 import articleRoutes from "./routes/article.routes.js"
 import applicationRoutes from "./routes/applicationForm.routes.js";
-import doctorRoutes from "./routes/doctor.route.js"
+import doctorRoutes from "./routes/doctor.routes.js";
+import caseRoutes from "./routes/case.routes.js"
 
 //apis
 import connectToMongoDB from "./db/connectToMongoDB.js";
@@ -38,6 +39,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/articles", articleRoutes);
 app.use("/api/application", applicationRoutes);
 app.use("/api/doctor", doctorRoutes);
+app.use("/api/case", caseRoutes);
 app.use(express.static(path.join(__dirname, "/frontend/dist")))
 
 

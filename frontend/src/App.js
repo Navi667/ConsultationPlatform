@@ -37,7 +37,7 @@ function App() {
   return (
     <>
       {currentPath === "adminpage" ? "" : <NavBar></NavBar>}
-      <div className='h-screen flex items-center justify-center'>
+      <div className='flex items-center justify-center'>
         <Routes>
           {/* //articles routes */}
           <Route path='/' element={<Home></Home>}></Route>
@@ -51,12 +51,12 @@ function App() {
           <Route path='/chatroom' element={<AuthRequired requiredAuth={'user'}><ChatRoom></ChatRoom></AuthRequired>}></Route>
           <Route path='/login' element={authUser ? <Navigate to="/"></Navigate> : <Login></Login>}></Route>
           <Route path='/signup' element={authUser ? 
-            (permission === "admin" ? <Navigate to="/"></Navigate> : <Navigate to="/chatroom"></Navigate>) :
+            (permission === "admin" ? <Navigate to="/"></Navigate> : <Navigate to="/"></Navigate>) :
             <SignUp></SignUp>}>
           </Route>
           {/* //users routes */}
           <Route path='/docs' element={<DocPage></DocPage>}></Route>
-          <Route path='/profile' element={<Profile></Profile>}></Route>
+          <Route path='/profile' element={<AuthRequired requiredAuth={'user'}><Profile></Profile></AuthRequired>}></Route>
           <Route path='*' element={<div>Not Found</div>}></Route>
         </Routes>
         <Toaster />

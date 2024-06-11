@@ -1,22 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DocCard from './docCard/DocCard';
-import "./DocList.css"
+import "./DocList.css";
 
-const DocList = () => {
-    const classes = ["内科", "外科", "妇产科", "儿科", "中医科"]
+const DocList = (classroom) => {
+    const docClass = classroom.classroom;
+    const [docs, setDocs] = useState([]);
+    useEffect(() => {
+        const getDoc = async (docClassroom)=>{
+            try{
+                const res = await fetch(`/api/doctor/getByClass`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({classroom: docClassroom})
+                });
+                const data = await res.json();
+                if(data.error){
+                    throw new Error(data.error);
+                };
+                setDocs(data);
+            }catch(error){
+                console.log(error.message);
+            }finally{
+                return;
+            }
+        };
+       getDoc(docClass);
+    },[docClass]);
+
     return (
-        <div className='doc-lists'>
-            {classes.map((item, index) => {
-                return <div className='doc-list' key={index}>
-                    <h1 className='list-title'>{item}</h1>
-                    <div className='list-cards'>
-                        <DocCard></DocCard>
-                        <DocCard></DocCard>
-                        <DocCard></DocCard>
-                        <DocCard></DocCard>
-                        <DocCard></DocCard>
-                    </div>
-                </div>
+        <div className='list-cards'>
+            {docs.map((item, index) => {
+                return <DocCard doctorInfor={item} key={index}></DocCard>
             })}
         </div>
     )

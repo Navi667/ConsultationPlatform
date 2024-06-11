@@ -41,7 +41,9 @@ export const signup = async (req, res) => {
         fullName: newUser.fullName,
         username: newUser.username,
         profilePic: newUser.profilePic,
-        permission: "user"
+        permission: "user",
+        gender: newUser.gender,
+        createdAt: newUser.createdAt
     })
    }
 
