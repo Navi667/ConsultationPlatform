@@ -3,7 +3,6 @@ import Messages from './Messages';
 import MessageInput from './MessageInput';
 import { TiMessages } from "react-icons/ti";
 import useConversation from '../../zustand/useConversation';
-import { useAuthContext } from '../../context/AuthContext';
 import { Modal } from 'antd';
 
 function MessageContainer() {
@@ -22,7 +21,6 @@ function MessageContainer() {
 }
 
 function ChatSelected(conversation) {
-    const { authUser } = useAuthContext();
     const [caseInfo, setCaseInfo] = useState({})
     const getCaseById = async (id) => {
             try {
